@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+	<jsp:directive.page contentType="text/html; charset=UTF-8" 
+		pageEncoding="UTF-8" session="false"/>
+	<jsp:output doctype-root-element="html"
+		doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+		doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
+		omit-xml-declaration="true" />
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Error Page</title>
+</head>
+<body style="background-color: slategray;color: white;
+	font-family: verdana, sans-serif;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: small-caps;
+	text-align: center;
+	letter-spacing: 0px;
+	line-height: 20px;
+	text-decoration: none;">
+	<table cellspacing="10">
+		<tr><a href="/E_Library/"><img id="logoImage" src="./images/logo.png" alt="logo image" title="" /></a></tr>
+		<tr><p2> <center><b>Oops... Something went wrong.</b></center></p2></tr><tr>
+		<p2><BR/><center>The page you are looking for does not exist.</center></p2></tr> 
+</table>
+</body>
+</html>
+</jsp:root>

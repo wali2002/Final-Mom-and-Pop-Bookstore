@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+xmlns:c="http://java.sun.com/jsp/jstl/core"
+xmlns:f="http://java.sun.com/jsp/jstl/fmt" version="2.0">	
+<jsp:directive.page contentType="text/html; charset=UTF-8" 
+		pageEncoding="UTF-8" session="false"/>
+	<jsp:output doctype-root-element="html"
+		doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+		doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
+		omit-xml-declaration="true" />
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<link rel="StyleSheet" href="res/mc.css" type="text/css" media="screen, print"/>
+	<script type="text/javascript" src="res/mc.js">;</script>
+	<title>Mom &amp;amp; Pop</title>
+</head>
+<body>
+<form action="" method="GET">
+<input type="hidden" name="page" value="2" />
+
+<table id="topTable">
+
+	<tr><td>
+			<a href="/E_Library/" id="homeLink"><img id="logoImage" src="images/logo.png" alt="logo image" title="Go to Home" /></a>
+			<select id="searchList" name="searchList" onFocus="closeAdvanced(Advanced)">
+				<option value="all">All</option>
+   				<option value="title">Title</option>
+   				<option value="author">Author</option>
+            </select>            		
+            <input id="searchText" name="searchText" type="text" placeholder="Search books..." onFocus="closeAdvanced(Advanced)"/>
+			<button id="searchButton" type="submit"><img id="searchImage" src="images/search.png" title="Search"/></button>
+			<a href="" onclick="return AdvancedSearch(Advanced)">Advanced Search</a>
+			<c:if test="${not empty username}">
+				<a href="/E_Library/myAccount">My Account</a>
+			</c:if>
+			<c:if test="${not empty username}">
+   				<a href="/E_Library/Login?out=" onclick="return logOut()">Sign out</a>
+			</c:if>
+			<c:if test="${empty username}">
+				<a href="/E_Library/Login">Sign in</a>
+			</c:if>
+			<a href="/E_Library/ShoppingCart">Shopping Cart</a>
+	</td></tr>
+	
+</table>
+
+
+<table style="margin-top: 46px;">
+	<tr><td id="Advanced"><!-- SEARCH.JS HANDLES THIS --></td></tr>
+</table>
+
+<center>
+	<table id="topPage">	
+		<tr>
+			<td>
+				<ul id="categoryTab" name="categoryTab">
+					<li class="dropdown"><a href="/E_Library/Category?a=all" class="dropbtn">Categories</a>
+						<div class="dropdown-content">
+							<a href="/E_Library/Category?a=engineering">Engineering</a>
+							<a href="/E_Library/Category?a=fiction">Fiction</a>
+							<a href="/E_Library/Category?a=history">Fantasy</a>
+							<a href="/E_Library/Category?a=romance">Romance</a>
+							<a href="/E_Library/Category?a=science">Science</a>
+						</div>
+					</li>
+					<li><a href="/E_Library/AboutUs" >About Us</a></li>
+					<li><a href="/E_Library/ContactUs" >Contact Us</a></li>
+					<li><a href="/E_Library/Help" id="help" name="help" >FaQ</a></li>
+				</ul>
+			</td>
+			
+		</tr>
+	</table>
+</center>
+</form>
+<form action="" method="POST"> 
+<c:if test="${empty username}">
+	You are not logged in. Please <a href="/E_Library/Login">log in</a> to access your account page. <br />
+	If you do not have an account, please register <a href="/E_Library/RegisterUser">here</a>.
+</c:if>
+
+<c:if test="${not empty username}">
+	
+	<h2 id= "customer"><center>Welcome ${username.getFname()} ${username.getLname()}</center></h2>
+	<center>	
+	
+	<table cellpadding="10px">
+	<tr><td><h3><b><u>Personal Information</u></b></h3></td></tr>
+	<tr> 
+		<td><label for="username"><b>Username:</b></label></td>
+		<td>${username.getUsername()}</td>
+	</tr>
+	
+	<tr> 
+		<td><label for="pass"><b>Password:</b></label></td>
+		<td><div id="password" style="display:block">${username.getPassword() }</div>
+		<input name="pass" id="pass" type="password" value="${username.getPassword() }" style="display:none" onblur="passwordCheck1()"/></td>
+		<td>
+			<p id="error1" style="color:red; display:none">Password should contain only letters and numbers</p>
+			<p id="error2" style="color:red; display:none">Password should not be longer than 9 characters</p>
+			<p id="error4" style="color:red; display:none">Password should not be empty</p></td>
+	</tr>
+	
+	<tr>
+		<td><label for="pass2" id="password2" style="display:none"><b>Repeat your Password:</b></label></td>
+		<td><input name="pass2" id="pass2" type="password" value="${username.getPassword() }" style="display:none" onblur="passwordCheck2()"/></td>
+		<td><p id="error3" style="color:red; display:none">Passwords don't match!</p></td>
+	</tr>
+	
+	<tr>
+		<td id="label"><label for="phone"><b>Phone number:</b></label></td>
+		<td> 
+			<div id="number" style="display:block">${address.getPhone()}</div>
+		</td>
+		<td>
+			<p id="error5" style="color:red; display:none">Phone number should not be empty!</p>
+			<p id="error6" style="color:red; display:none">Phone number should be in a form ###-###-####<br />(where # is a digit)</p>
+		</td>
+		
+	</tr>
+	
+	
+	
+	<tr><td><h3><b><u>Mailing Address</u></b></h3></td></tr>
+
+	<tr>
+		<td><label for="address"><b>Mailing Address:</b></label></td>
+		<td><div id="add" style="display:block">${address.getStreet()}</div>
+		<input name="address" id="address" type="textfield" value="${address.getStreet()}" style="display:none" onblur="testAddress2(address, error7, error8)"/></td>
+		<td>
+			
+			<p id="error7" style="color:red; display:none">Mailing address cannot be empty</p>
+			<p id="error8" style="color:red; display:none">Mailing address should contain only letters and/or numbers</p>
+		</td>
+	</tr>
+	
+	
+	<tr>
+		<td id="label"><label for="city"><b>City:</b></label></td>
+		<td> <div id="ci" style="display:block">${address.getCity()}</div>
+		<input name="acity" id="acity" type="textfield" value="${address.getCity()}" style="display:none" onblur="testAddress(acity, error9, error10)"/></td>
+		<td>
+			
+			<p id="error9" style="color:red; display:none">City cannot be empty</p>
+			<p id="error10" style="color:red; display:none">Not a valid city name. <br />Should be composed of letters only!</p>
+		</td>
+		
+	</tr>
+	
+	<tr>
+		<td id="label"><label for="province"><b>Province:</b></label></td>
+			<td> <div id="pro" style="display:block">${address.getProvince()}</div>
+			<input name="aprovince" id="aprovince" type="text" value="${address.getProvince()}" style="display:none" onblur="testAddress(aprovince, error11, error12)"/></td>
+			<td>
+				
+				<p id="error11" style="color:red; display:none">Province cannot be empty!</p>
+				<p id="error12" style="color:red; display:none">Not a valid province name. <br />Should be composed of letters only!</p>
+			</td>
+			
+	</tr>
+	
+	<tr>
+		<td id="label"><label for="pc"><b>Postal Code:</b></label></td>
+		<td> <div id="postal" style="display:block">${address.getZip()}</div>
+			<input name="azip" id="azip" type="text" value="${address.getZip()}" style="display:none" onblur="testAddress2(azip, error15, error16)"/></td>
+		<td>
+		
+			<p id="error15" style="color:red; display:none">Postal Code should not be empty</p>
+			<p id="error16" style="color:red; display:none">Postal Code should contain only letters and/or numbers</p>
+		</td>
+		
+	</tr>
+	
+	<tr>
+		<td id="label"><label for="country"><b>Country:</b></label></td>
+		<td><div id="country" style="display:block">${address.getCountry()}</div>
+		<input name="acountry" id="acountry" type="text" value="${address.getCountry()}" style="display:none" onblur="testAddress(acountry, error13, error14)"/></td>
+		<td>
+			<p id="error13" style="color:red; display:none">Country cannot be empty</p>
+			<p id="error14" style="color:red; display:none">Not a valid country name. <br />Should be composed of letters only!</p>
+		</td>
+	</tr>
+	
+	
+	</table>
+	</center>
+	
+	<br />
+	<br />
+	
+	<center>
+		<button type="submit" name="saveAccountChange" id="saveAccountChange" onclick="return checkBeforeSave()" >Save Changes</button>       
+	</center>
+</c:if>
+
+	</form>
+</body>
+</html>
+</jsp:root>

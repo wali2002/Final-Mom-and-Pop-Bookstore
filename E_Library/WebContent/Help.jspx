@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+xmlns:c="http://java.sun.com/jsp/jstl/core"
+xmlns:f="http://java.sun.com/jsp/jstl/fmt" version="2.0">	
+<jsp:directive.page contentType="text/html; charset=UTF-8" 
+		pageEncoding="UTF-8" session="false"/>
+	<jsp:output doctype-root-element="html"
+		doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+		doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
+		omit-xml-declaration="true" />
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<link rel="StyleSheet" href="res/mc.css" type="text/css" media="screen, print"/>
+	<script type="text/javascript" src="res/search.js">;</script>
+	<script type="text/javascript" src="res/mc.js">;</script>
+	<script type="text/javascript" src="res/help.js">;</script>
+	<title>Mom &amp;amp; Pop</title>
+</head>
+<body>
+<form action="" method="GET">
+<input type="hidden" name="page" value="1" />
+
+<table id="topTable">
+
+	<tr>
+		<td>
+			<a href="/E_Library/" id="homeLink"><img id="logoImage" src="images/logo.png" alt="logo image" title="Go to Home" /></a>
+			<select id="searchList" name="searchList" onFocus="closeAdvanced(Advanced)">
+				<option value="all">All</option>
+   				<option value="title">Title</option>
+   				<option value="author">Author</option>
+            </select>            		
+            <input id="searchText" name="searchText" type="text" placeholder="Search books..." onFocus="closeAdvanced(Advanced)"/>
+			<button id="searchButton" type="submit"><img id="searchImage" src="images/search.png" title="Search"/></button>
+			<a href="" onclick="return AdvancedSearch(Advanced)">Advanced Search</a>
+			<c:if test="${not empty username}">
+				<a href="/E_Library/myAccount">My Account</a>
+			</c:if>
+			<c:if test="${not empty username}">
+   				<a href="/E_Library/Login?out=" onclick="return logOut()">Sign out</a>
+			</c:if>
+			<c:if test="${empty username}">
+				<a href="/E_Library/Login">Sign in</a>
+			</c:if>
+			<a href="/E_Library/ShoppingCart">Shopping Cart</a>
+		</td>
+	</tr>
+	
+</table>
+
+
+<table style="margin-top: 46px;">
+	<tr><td id="Advanced"><!-- SEARCH.JS HANDLES THIS --></td></tr>
+</table>
+
+<center>
+	<table id="topPage">	
+		<tr>
+			<td>
+				<ul id="categoryTab" name="categoryTab">
+					<li class="dropdown"><a href="/E_Library/Category?a=all" class="dropbtn">Categories</a>
+						<div class="dropdown-content">
+							<a href="/E_Library/Category?a=engineering">Engineering</a>
+							<a href="/E_Library/Category?a=fiction">Fiction</a>
+							<a href="/E_Library/Category?a=history">Fantasy</a>
+							<a href="/E_Library/Category?a=romance">Romance</a>
+							<a href="/E_Library/Category?a=science">Science</a>
+						</div>
+					</li>
+					<li><a href="/E_Library/AboutUs" >About Us</a></li>
+					<li><a href="/E_Library/ContactUs" >Contact Us</a></li>
+					<li><a href="/E_Library/Help" id="help" name="help" >FaQ</a></li>
+				</ul>
+			</td>
+			
+		</tr>
+	</table>
+	</center>
+ 
+ 
+<center>
+	<table style="float: center;">
+		<tr>
+			<td><br/><br/><br/><a href="" onclick="return about(aboutid)">What is Mom &amp;amp; Pop?</a></td>
+		</tr>
+		<tr><td id="aboutid" style="position: absolute; background-color: rgba(25, 25, 25, 0.75); float: left; margin-top: 6px;"></td></tr>
+	
+		<tr>
+			<td><br/><br/><br/><a href="" onclick="return eLib(eLibid)">What is eLibrary?</a></td>
+		</tr>
+		<tr><td id="eLibid" style="position: absolute; background-color: rgba(25, 25, 25, 0.75); float: left; margin-top: 6px;"></td></tr> 
+	
+		<tr>
+			<td><br/><br/><br/><a href="" onclick="return reg(regid)">Do I need to register to purchase a book?</a></td>
+		</tr>
+		<tr><td id="regid" style="position: absolute; background-color: rgba(25, 25, 25, 0.75); float: left; margin-top: 6px;"></td></tr>
+		
+		<tr>
+			<td><br/><br/><br/><a href="" onclick="return pay(payid)">How do I pay for the book?</a></td>
+		</tr>
+		<tr><td id="payid" style="position: absolute; background-color: rgba(25, 25, 25, 0.75); float: left; margin-top: 6px;"></td></tr>
+	
+		<tr>
+			<td><br/><br/><br/><a href="" onclick="return ship(shipid)">How long does shipping take?</a></td>
+		</tr>
+		<tr><td id="shipid" style="position: absolute; background-color: rgba(25, 25, 25, 0.75); float: left; margin-top: 6px;"></td></tr>
+	
+		<tr>
+			<td><br/><br/><br/><a href="/E_Library/ContactUs">I have a different inquiry</a></td> <!-- go to contact us page -->
+		</tr>
+	
+	</table>
+</center>
+
+</form>
+</body>
+</html>
+</jsp:root>
